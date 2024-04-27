@@ -120,6 +120,35 @@ async function handlePromise() {
 // In case of 10, 5 - by time p1 resolved, p2 also resolved - so executes everything after 10s waiting
 // In case of 5, 10 - p1 resolved and execute after 5s, but waits another 5s for p2 it resolved - then executes forwards
 
-// This is more so because both promises creation constructor itself starts the setTimeout at top itself
-// If p2 is created after we await p1 then it would wait for each one after the other
+// ! This is more so because both promises creation constructor itself starts the setTimeout at top itself
+// ! If p2 is created after we await p1 then it would wait for each one after the other
 // But since both Promise instances are created simultaneously - they are counted simultaneously
+
+// ++++++++++++++++++++ FETCH ++++++++++++++++++++++++++++++
+/**
+ * Fetch function returns a Promise
+ * On resolution, returns a readable stream
+ * To convert to json - we have to do await response.json() - which is again a promise
+ *
+ * In promise we do chaining:
+ * => fetch(API).then((res) => res.json()).then((res) => console.log(res));
+ */
+
+// Earlier in Promises we had then catch - In case of async await we use try catch wrapper
+// so we can use .catch after making call to async function
+async function handle() {
+  const data = await fetch(API_URL);
+  return data;
+}
+
+handle().catch((err) => console.log(err));
+
+// ++++++++++++++++++++ INTERVIEW TIPS ++++++++++++++++++++++++++++++
+// What is async await - begin with them as keyword and then jump to their usage in async function
+// that await can only we used in async functions - which return asynchronous Promises
+
+// ++++++++++++++++++++ ASYNC-AWAIT VS THEN-CATCH ++++++++++++++++++++++++++++++
+// async await is just syntactic sugar over - then catch
+// in async await - we don't have to think about callbacks for them to execute later - here we are sure that execution will suspend until resolution
+// No promise chaining here
+// This is newer - and make somewhat more readable
