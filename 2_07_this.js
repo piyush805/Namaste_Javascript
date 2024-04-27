@@ -33,7 +33,7 @@ const obj = {
   x: function () {
     // here, x is method of the object - obj
     console.log(this);
-  },
+  }, 
 };
 obj.x(); //- value of this will be {a:10, x: f} - the object wherever this method is present
 
